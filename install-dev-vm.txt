@@ -1,0 +1,16 @@
+download ubuntu server (12.04) - 64 bits
+wget http://releases.ubuntu.com/12.04/ubuntu-12.04.5-server-amd64.iso
+create 64bits machine on Virtualbox
+put the iso as virtual DVD
+configure 2nd NIC to be host-only
+on boot - choose F4 (mode) minimal virtual machine
+choose hostname to be dce
+create a user (sudoer) and password, do not encrypt home
+install the minimum system
+no automatic updates
+no software to install
+install grub loader
+boot
+login cesar, passwd: 1234
+==================================================
+
