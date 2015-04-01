@@ -1,0 +1,71 @@
+* fix apt-get issue, clean up universe repo
+sudo rm -rf /var/lib/apt/lists/*
+sudo apt-get update
+sudo apt-get clean
+sudo apt-get install vim
+sudo apt-get install mercurial
+hg clone http://code.nsnam.org/bake bake
+
+* set some environment variables
+export BAKE_HOME=`pwd`/bake
+export PATH=$PATH:$BAKE_HOME
+export PYTHONPATH=$PYTHONPATH:$BAKE_HOME
+
+* create DCE configuration
+mkdir dce
+cd dce
+bake.py configure -e dce-ns3-1.5
+bake.py check
+
+--------------- (result)
+ > Python - OK
+ > GNU C++ compiler - is missing
+ > Mercurial - OK
+ > CVS - is missing
+ > GIT - is missing
+ > Bazaar - is missing
+ > Tar tool - OK
+ > Unzip tool - is missing
+ > Unrar tool - is missing
+ > 7z  data compression utility - is missing
+ > XZ data compression utility - OK
+ > Make - is missing
+ > cMake - is missing
+ > patch tool - is missing
+ > autoreconf tool - is missing
+               
+ > Path searched for tools: /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/games /home/cesar/bake bin  /home/cesar/bake
+--------------- (result)
+
+* Fix dependencies
+sudo apt-get install build-essential gcc g++ 
+sudo apt-get install flex bison subversion cvs bzr
+sudo apt-get install p7zip-full unzip unrar
+sudo apt-get install cmake libpcap-dev libxerces-c2-dev
+sudo apt-get install libpcre3-dev pkg-config autoconf libtool libboost-dev
+
+cesar@dce:~/dce$ bake.py check
+> Python - OK
+> GNU C++ compiler - OK
+> Mercurial - OK
+> CVS - OK
+> GIT - OK
+> Bazaar - OK
+> Tar tool - OK
+> Unzip tool - OK
+> Unrar tool - OK
+> 7z  data compression utility - OK
+> XZ data compression utility - OK
+> Make - OK
+> cMake - OK
+> patch tool - OK
+> autoreconf tool - OK
+
+* Seems all good, found other dependencies on bake.py download
+sudo apt-get install libexpat1 libexpat1-dev
+sudo apt-get install python-pip python-dev 
+sudo apt-get install graphviz libgraphviz-dev
+sudo pip install pygraphviz 
+sudo apt-get install python-pygoocanvas
+sudo apt-get install qt4-dev-tools libqt4-dev libqt4-core libqt4-gui
+sudo apt-get install libc6-dev libc6-dbg

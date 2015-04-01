@@ -8,9 +8,11 @@ choose hostname to be dce
 create a user (sudoer) and password, do not encrypt home
 install the minimum system
 no automatic updates
-no software to install
+Software selection: install OpenSSH server
 install grub loader
 boot
 login cesar, passwd: 1234
+sudo ifconfig eth1 up
+sudo dhclient eth1
 ==================================================
 
