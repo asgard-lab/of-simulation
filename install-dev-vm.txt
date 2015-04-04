@@ -1,6 +1,7 @@
 download ubuntu server (12.04) - 64 bits
 wget http://releases.ubuntu.com/12.04/ubuntu-12.04.5-server-amd64.iso
 create 64bits machine on Virtualbox
+create a 16GB virtual disk (instead of default 8GB)
 put the iso as virtual DVD
 configure 2nd NIC to be host-only
 on boot - choose F4 (mode) minimal virtual machine

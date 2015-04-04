@@ -1,0 +1,18 @@
+* Start removing the previous dce installation
+rm -rf dce/
+mkdir dce
+bake.py configure -e dce-linux-1.5
+
+* More dependencies and installation
+sudo apt-get install libdb-dev libdb++-dev
+bake.py download -vvv
+bake.py build -vvv
+
+cd source/ns-3-dce/
+./waf --run dce-udp-simple
+cat files-0/var/log/38881/stdout
+
+./waf --run dce-iperf
+cat files-1/var/log/2022/*
+cat files-0/var/log/26481/*
+
