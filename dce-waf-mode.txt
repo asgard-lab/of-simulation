@@ -1,0 +1,42 @@
+* Clean up for the WAF installation
+rm -rf dce
+
+* More dependencies
+sudo apt-get install gccxml
+
+mkdir dce
+cd dce
+bzr clone  https://launchpad.net/pybindgen
+cd pybindgen
+./waf configure --prefix=$HOME/dce/build
+./waf
+./waf install
+
+* ns-3.19
+cd ~/dce
+hg clone http://code.nsnam.org/ns-3.19
+cd ~/dce/ns-3.19
+./waf configure --enable-examples -d optimized --prefix=$HOME/dce/build \
+                --includedir=$HOME/dce/ns-3.19/include/ns-3.19
+./waf build
+./waf install
+
+* kernel library, dependencies first
+sudo apt-get install bc
+cd ~/dce
+git clone https://github.com/thehajime/net-next-sim.git
+cd net-next-sim/
+git checkout sim-ns3-3.10.0-branch
+make defconfig OPT=yes ARCH=sim
+make library OPT=yes ARCH=sim
+
+* ns-3-dce library
+cd ~/dce
+cd ns-3-dce/
+hg clone http://code.nsnam.org/ns-3-dce  -r dce-1.2
+./waf configure --with-ns3=$HOME/dce/build --enable-opt                 --enable-kernel-stack=$HOME/dce/net-next-sim/arch                 --prefix=$HOME/dce/build
+./waf build
+./waf install
+
+./waf --run dce-udp-simple [works]
+./waf --run dce-iperf [missing iperf src to compile]
