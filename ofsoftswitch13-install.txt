@@ -1,4 +1,6 @@
 * in a new VM, delete and reinstall the VM dev
+* in addition to NAT (access to internet) and host-only (ssh)
+* create 2 network internal interfaces - to generate traffic from VM to VM 
 sudo rm -rf /var/lib/apt/lists/*
 sudo apt-get update
 sudo apt-get clean
@@ -25,4 +27,6 @@ cd ofsoftswitch13/
 make
 sudo make install
 
-
+* running ofsoftswitch13
+sudo ofdatapath --detach punix:/var/run/dp0 --datapath-id=000000000001 --interfaces=eth2,eth3 ptcp:6633
+sudo ofprotocol unix:/var/run/dp0 tcp:192.168.0.100:6633
