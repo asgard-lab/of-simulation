@@ -1,0 +1,28 @@
+* in a new VM, delete and reinstall the VM dev
+sudo rm -rf /var/lib/apt/lists/*
+sudo apt-get update
+sudo apt-get clean
+sudo apt-get install vim git unzip
+sudo apt-get install cmake build-essential gcc g++ pkg-config autoconf libtool
+sudo apt-get install libpcap-dev libxerces-c2-dev libpcre3-dev flex bison libboost-all-dev
+wget http://www.nbee.org/download/nbeesrc-12-11-12.php
+mv nbeesrc-12-11-12.php nbeesrc-12-11-12.zip
+
+* compiling nbee
+cd nbeesrc-2012-11-12/src/
+cmake .
+make
+cd ..
+sudo cp bin/libn*.so /usr/local/lib
+sudo ldconfig
+sudo cp -R include/* /usr/include
+
+* compiling ofsoftswitch13
+git clone https://github.com/CPqD/ofsoftswitch13.git
+cd ofsoftswitch13/
+./boot.sh
+./configure
+make
+sudo make install
+
+
